@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
-import TestView from "../views/TestView.vue";
+import PostsIndex from "../views/PostsIndex.vue";
 import SignupView from "../views/SignupView.vue";
 import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
+import PostsNew from "../views/PostsNew.vue";
 
 const routes = [
   {
@@ -19,13 +20,14 @@ const routes = [
   },
 
   {
-    path: "/test",
-    name: "test",
-    component: TestView,
+    path: "/posts",
+    name: "posts-index",
+    component: PostsIndex,
   },
   { path: "/signup", name: "signup", component: SignupView },
   { path: "/login", name: "login", component: LoginView },
   { path: "/logout", name: "logout", component: LogoutView },
+  { path: "/post-new", name: "post", component: PostsNew },
 ];
 
 const router = createRouter({

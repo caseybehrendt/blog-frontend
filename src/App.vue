@@ -4,9 +4,11 @@
     |
     <router-link to="/about">About</router-link>
     |
-    <router-link to="/test">Test</router-link>
+    <router-link to="/posts">Posts</router-link>
     |
     <router-link to="/signup">Signup</router-link>
+    |
+    <router-link to="/post-new">New Post</router-link>
     |
     <router-link to="/login">Login</router-link>
     |
