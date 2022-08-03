@@ -4,17 +4,26 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newPostParams: {},
+      post: {},
       errors: [],
     };
   },
+  created: function () {
+    this.showPost();
+  },
   methods: {
-    createPost: function () {
+    showPost: function () {
+      axios.get("/posts/" + this.$route.params.id + "json").then((response) => {
+        this.post = response.data;
+        console.log("One Post: ", response.data);
+      });
+    },
+    editPost: function () {
       axios
-        .post("/posts.json", this.newPostParams)
+        .patch("/posts/" + this.post.id + ".json", this.post)
         .then((response) => {
-          console.log("Success", response.data);
-          this.$router.push("/posts");
+          console.log("Success!", response.data);
+          this.$router.push("/recipes");
         })
         .catch((error) => {
           console.log(error.response.data.errors);
@@ -27,8 +36,8 @@ export default {
 
 <template>
   <div>
-    <h1>New Post</h1>
-    <form v-on:submit.prevent="createPosts()">
+    <h1>Edit Post</h1>
+    <form v-on:submit.prevent="editPost()">
       <ul>
         <li v-for="error in errors" v-bind:key="error">
           {{ error }}
@@ -36,27 +45,19 @@ export default {
       </ul>
       <div>
         Title:
-        <input type="text" v-model="newPostParams.title" />
-        <br />
+        <input type="text" v-model="post.title" />
       </div>
       <div>
         Body:
         <input type="text" v-model="newPostParams.body" />
-        <br />
-        <small class="test-danger" v-if="newPostParams.body && newPostParams.body.length < 100">
-          Must be at least 100 characters
-        </small>
-        <br />
-        <small class="test-danger" v-if="newPostParams.body && newPostParams.body.length > 500">
-          Must be no more 500 characters
-        </small>
       </div>
       <div>
         Image:
         <input type="text" v-model="newPostParams.image" />
-        <br />
       </div>
       <input type="submit" value="Submit Post" />
     </form>
   </div>
 </template>
+
+<style scoped></style>

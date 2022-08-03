@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+
 export default {
   data: function () {
     return {
@@ -22,13 +23,30 @@ export default {
 
 <template>
   <div>
-    <h1>All Posts</h1>
-    <div v-for="post in posts" v-bind:key="post.id">
-      <h2>Title: {{ post.title }}</h2>
-      <img v-bind:src="post.image_url" v-bind:alt="post.title" />
-      <p>Body: {{ post.body }}</p>
+    <div class="row">
+      <!-- <div class="col-sm-4" v-for="post in posts" v-bind:key="post.id">
+        <div class="card md-4"> -->
+      <div class="col-sm-4" v-for="post in posts" v-bind:key="post.id" v-on:mouseover="currentPost = Post">
+        <div class="card md-4" v-bind:class="{ selected: post == currentPost }">
+          <img class="card-img-top" v-bind:src="post.image" v-bind:alt="post.title" />
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.body }}</p>
+            <a v-bind:href="`/posts/${post.id}`">More info</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.card im {
+  object-fit: cover;
+  height: 250px;
+}
+.selected {
+  background-color: deepskyblue;
+  transition: background-color 1s ease;
+}
+</style>
